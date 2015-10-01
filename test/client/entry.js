@@ -1,0 +1,1 @@
+require(__dirname + '/beverages_http_test.js');
