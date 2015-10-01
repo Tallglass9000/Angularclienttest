@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body data-ng-app="beveragesApp">
+  <main data-ng-controller="BeveragesController" data-ng-init="getAll()">
+    <h1>Beverages App:</h1>
+    <form name="newBeverageForm" data-ng-submit="createBeverage(newBeverage)">
+      <label for="beverageBody">New Beverage:
+        <input type="text" required data-ng-model="newBeverage.beverageBody">
+      </label>
+      <button type="submit" data-ng-disabled="newBeverageForm.$invalid">Add New Beverage</button>
+    </form>
+
+    <ul id="beverageslist">
+      <li class="{{beverage.status}}" data-ng-repeat="beverage in beverages">
+        <span data-ng-if="!beverage.editing">{{beverage.beverageBody}}
+          <button data-ng-click="beverage.editing = true">Edit</button>
+          <button data-ng-click="removeBeverage(beverage)">Delete</button>
+        </span>
+        <form data-ng-if="beverage.editing" name="{{'beverageForm' + beverage._id}}" data-ng-submit="updateBeverage(beverage)">
+          <input type="text" data-ng-model="beverage.beverageBody">
+          <button type="submit">Save Changes</button>
+        </form>
+        <button data-ng-if="!beverage.editing" data-ng-click="beverage.editing = false">Cancel</button>
+      </li>
+    </ul>
+  </main>
+  <script src="bundle.js"></script>
+</body>
+</html>
